@@ -1,5 +1,6 @@
 from .bedwars import Bedwars
 import datetime
+import utils
 
 
 class MojangPlayer:
@@ -33,6 +34,7 @@ class HypixelPlayer:
     def __init__(self, data):
         self.name = data.get("player", {}).get("displayname")
         self.uuid = data.get("player", {}).get("uuid")
+        self.rank = Rank(data)
         self.karma = data.get("player", {}).get("karma", 0)
         self.achievement_points = data.get("player", {}).get("achievementPoints", 0)
         self.logins = LoginTimes(data)
@@ -54,3 +56,15 @@ class SocialMedia:
         self.twitch = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("TWITCH")
         self.discord = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("DISCORD")
         self.hypixel_forums = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("HYPIXEL")
+
+
+class Rank:
+    def __init__(self, data):
+        self.name = utils.get_rank(
+            data.get("player", {}).get("rank"),
+            data.get("player", {}).get("prefix"),
+            data.get("player", {}).get("monthlyPackageRank"),
+            data.get("player", {}).get("newPackageRank"),
+            data.get("player", {}).get("packageRank"),
+        )
+        self.color = utils.get_rank_color(self.name)

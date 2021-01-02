@@ -3,7 +3,7 @@ import utils
 
 class Bedwars:
     def __init__(self, data):
-        self.star = data.get("player", {}).get("achievements", {}).get("bedwars_level", 0)
+        self.prestige = Prestige(data.get("player", {}).get("achievements", {}).get("bedwars_level", 0))
         self.coins = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("coins_bedwars", 0)
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -31,12 +31,23 @@ class Bedwars:
         self.dreams = Dreams(data)
 
 
+class Prestige:
+    def __init__(self, star):
+        self.star = star
+        self.star_index = star // 100
+        self.name = utils.get_bedwars_prestige_name(self.star_index)
+        self.color = utils.get_bedwars_prestige_color(self.star_index)
+
+
 # every mode is going to have one of these
 class BedsBrokenLost:
     def __init__(self, broken, lost):
         self.broken = broken
         self.lost = lost
         self.ratio = utils.get_ratio(broken, lost)
+
+    def increase(self, *, amount: int = 0):
+        return utils.get_increase(self.broken, self.lost, amount=amount)
 
 
 class KillsDeaths:
@@ -45,6 +56,9 @@ class KillsDeaths:
         self.deaths = deaths
         self.ratio = utils.get_ratio(kills, deaths)
 
+    def increase(self, *, amount: int = 0):
+        return utils.get_increase(self.kills, self.deaths, amount=amount)
+
 
 class FinalKillsDeaths:
     def __init__(self, kills, deaths):
@@ -52,12 +66,18 @@ class FinalKillsDeaths:
         self.deaths = deaths
         self.ratio = utils.get_ratio(kills, deaths)
 
+    def increase(self, *, amount: int = 0):
+        return utils.get_increase(self.kills, self.deaths, amount=amount)
+
 
 class WinsLosses:
     def __init__(self, wins, losses):
         self.wins = wins
         self.losses = losses
         self.ratio = utils.get_ratio(wins, losses)
+
+    def increase(self, *, amount: int = 0):
+        return utils.get_increase(self.wins, self.losses, amount=amount)
 
 
 # regular modes
