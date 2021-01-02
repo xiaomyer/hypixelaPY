@@ -112,10 +112,14 @@ def get_increase(positive_stat, negative_stat, *, amount: int = 0):
 
 
 def get_bedwars_prestige_name(star_index):
+    if star_index > len(bedwars_prestiges) - 1:
+        star_index = len(bedwars_prestiges) - 1
     return bedwars_prestiges[star_index]
 
 
 def get_bedwars_prestige_color(star_index):
+    if star_index > len(bedwars_prestige_colors) - 1:
+        star_index = len(bedwars_prestige_colors) - 1
     return bedwars_prestige_colors[star_index]
 
 
