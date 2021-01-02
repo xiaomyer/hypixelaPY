@@ -1,5 +1,5 @@
-from exceptions import NoPlayerFoundError
-from objects.objects import HypixelPlayer
+from .exceptions import NoPlayerFoundError
+from .objects.objects import HypixelPlayer
 import aiohttp
 
 HYPIXEL_API = "https://api.hypixel.net"

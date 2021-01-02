@@ -1,12 +1,18 @@
 from .bedwars import Bedwars
 import datetime
-import utils
+from .. import utils
 
 
 class MojangPlayer:
     def __init__(self, data):
         self.name = data["name"]
         self.uuid = data["id"]
+
+    def __str__(self):
+        return self.name
+
+    def __int__(self):
+        return self.uuid
 
 
 class NameHistory:
@@ -68,3 +74,6 @@ class Rank:
             data.get("player", {}).get("packageRank"),
         )
         self.color = utils.get_rank_color(self.name)
+
+    def __str__(self):
+        return self.name

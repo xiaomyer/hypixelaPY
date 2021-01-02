@@ -1,8 +1,9 @@
-import utils
+from .. import utils
 
 
 class Bedwars:
     def __init__(self, data):
+        self.name = "Bedwars"
         self.prestige = Prestige(data.get("player", {}).get("achievements", {}).get("bedwars_level", 0))
         self.coins = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("coins_bedwars", 0)
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("games_played_bedwars", 0)
@@ -30,6 +31,9 @@ class Bedwars:
         self.four_v_four = FourVFour(data)
         self.dreams = Dreams(data)
 
+    def __str__(self):
+        return self.name
+
 
 class Prestige:
     def __init__(self, star):
@@ -37,6 +41,12 @@ class Prestige:
         self.star_index = star // 100
         self.name = utils.get_bedwars_prestige_name(self.star_index)
         self.color = utils.get_bedwars_prestige_color(self.star_index)
+
+    def __int__(self):
+        return self.star
+
+    def __str__(self):
+        return self.name
 
 
 # every mode is going to have one of these
@@ -83,6 +93,7 @@ class WinsLosses:
 # regular modes
 class Solo:
     def __init__(self, data):
+        self.name = "Solo"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_one_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -103,9 +114,13 @@ class Solo:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class Doubles:
     def __init__(self, data):
+        self.name = "Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -126,9 +141,13 @@ class Doubles:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class Threes:
     def __init__(self, data):
+        self.name = "Threes"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_three_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -149,9 +168,13 @@ class Threes:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_three_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class Fours:
     def __init__(self, data):
+        self.name = "Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -172,9 +195,13 @@ class Fours:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class FourVFour:
     def __init__(self, data):
+        self.name = "4v4"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "two_four_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -195,6 +222,9 @@ class FourVFour:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("two_four_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 # dreams modes
 class Dreams:
@@ -212,6 +242,7 @@ class Armed:
 
 class ArmedDoubles:
     def __init__(self, data):
+        self.name = "Armed Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_armed_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -232,9 +263,13 @@ class ArmedDoubles:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_armed_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class ArmedFours:
     def __init__(self, data):
+        self.name = "Armed Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_armed_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -255,9 +290,13 @@ class ArmedFours:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_armed_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class Castle:
     def __init__(self, data):
+        self.name = "Castle"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "castle_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -278,6 +317,9 @@ class Castle:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("castle_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class LuckyBlocks:
     def __init__(self, data):
@@ -287,6 +329,7 @@ class LuckyBlocks:
 
 class LuckyBlocksDoubles:
     def __init__(self, data):
+        self.name = "Lucky Block Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_lucky_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -307,9 +350,13 @@ class LuckyBlocksDoubles:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_lucky_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class LuckyBlocksFours:
     def __init__(self, data):
+        self.name = "Lucky Block Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_lucky_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -330,6 +377,9 @@ class LuckyBlocksFours:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_lucky_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class Rush:
     def __init__(self, data):
@@ -340,6 +390,7 @@ class Rush:
 
 class RushSolo:
     def __init__(self, data):
+        self.name = "Rush Solo"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_one_rush_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -360,9 +411,13 @@ class RushSolo:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_rush_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class RushDoubles:
     def __init__(self, data):
+        self.name = "Rush Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_rush_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -383,9 +438,13 @@ class RushDoubles:
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_rush_winstreak", 0)
 
+    def __str__(self):
+        return self.name
+
 
 class RushFours:
     def __init__(self, data):
+        self.name = "Rush Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_rush_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -405,8 +464,11 @@ class RushFours:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_rush_losses_bedwars", 0)
         )
         self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_rush_winstreak", 0)
-        
-        
+
+    def __str__(self):
+        return self.name
+
+
 class Ultimate:
     def __init__(self, data):
         self.solo = UltimateSolo(data)
@@ -416,6 +478,7 @@ class Ultimate:
 
 class UltimateSolo:
     def __init__(self, data):
+        self.name = "Ultimate Solo"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_one_ultimate_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -434,11 +497,16 @@ class UltimateSolo:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_ultimate_wins_bedwars", 0),
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_ultimate_losses_bedwars", 0)
         )
-        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_ultimate_winstreak", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_one_ultimate_winstreak",
+                                                                                        0)
+
+    def __str__(self):
+        return self.name
 
 
 class UltimateDoubles:
     def __init__(self, data):
+        self.name = "Ultimate Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_ultimate_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -457,11 +525,16 @@ class UltimateDoubles:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_ultimate_wins_bedwars", 0),
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_ultimate_losses_bedwars", 0)
         )
-        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_ultimate_winstreak", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_ultimate_winstreak",
+                                                                                        0)
+
+    def __str__(self):
+        return self.name
 
 
 class UltimateFours:
     def __init__(self, data):
+        self.name = "Ultimate Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_ultimate_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -480,9 +553,13 @@ class UltimateFours:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_ultimate_wins_bedwars", 0),
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_ultimate_losses_bedwars", 0)
         )
-        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_ultimate_winstreak", 0)
-        
-        
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_ultimate_winstreak",
+                                                                                        0)
+
+    def __str__(self):
+        return self.name
+
+
 class Voidless:
     def __init__(self, data):
         self.doubles = VoidlessDoubles(data)
@@ -491,6 +568,7 @@ class Voidless:
 
 class VoidlessDoubles:
     def __init__(self, data):
+        self.name = "Voidless Doubles"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "eight_two_voidless_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -509,11 +587,16 @@ class VoidlessDoubles:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_voidless_wins_bedwars", 0),
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_voidless_losses_bedwars", 0)
         )
-        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_voidless_winstreak", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("eight_two_voidless_winstreak",
+                                                                                        0)
+
+    def __str__(self):
+        return self.name
 
 
 class VoidlessFours:
     def __init__(self, data):
+        self.name = "Voidless Fours"
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get(
             "four_four_voidless_games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
@@ -532,4 +615,8 @@ class VoidlessFours:
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_voidless_wins_bedwars", 0),
             data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_voidless_losses_bedwars", 0)
         )
-        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_voidless_winstreak", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("four_four_voidless_winstreak",
+                                                                                        0)
+
+    def __str__(self):
+        return self.name

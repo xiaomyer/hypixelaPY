@@ -1,5 +1,5 @@
-from exceptions import NoPlayerFoundError
-from objects.objects import MojangPlayer, NameHistory
+from .exceptions import NoPlayerFoundError
+from .objects.objects import MojangPlayer, NameHistory
 import aiohttp
 
 MOJANG_API = "https://api.mojang.com"
