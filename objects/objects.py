@@ -1,10 +1,32 @@
 from .bedwars import Bedwars
+import datetime
 
 
 class MojangPlayer:
     def __init__(self, data):
         self.name = data["name"]
         self.uuid = data["id"]
+
+
+class NameHistory:
+    def __init__(self, data):
+        self.data = data
+
+    def __iter__(self):
+        self.index = 0
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.data) - 1:
+            raise StopIteration
+        self.index += 1
+        return NameHistoryEntry(self.data[self.index])
+
+
+class NameHistoryEntry:
+    def __init__(self, data):
+        self.name = data["name"]
+        self.time = datetime.date.fromtimestamp(data["changedToAt"] / 1000)
 
 
 class HypixelPlayer:
