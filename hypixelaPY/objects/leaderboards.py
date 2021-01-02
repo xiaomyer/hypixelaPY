@@ -42,3 +42,19 @@ class Bedwars:
     def __init__(self, api, data):
         self.api = api
         self.stars = Leaderboard(self.api, data[0])
+        self.wins = BedwarsWins(self.api, data)
+        self.finals = BedwarsFinalKills(self.api, data)
+
+
+class BedwarsWins:
+    def __init__(self, api, data):
+        self.api = api
+        self.overall = Leaderboard(self.api, data[1])
+        self.weekly = Leaderboard(self.api, data[2])
+
+
+class BedwarsFinalKills:
+    def __init__(self, api, data):
+        self.api = api
+        self.overall = Leaderboard(self.api, data[3])
+        self.weekly = Leaderboard(self.api, data[4])
