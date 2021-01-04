@@ -1,2 +1,6 @@
+__pycache__/
+hypixelaPY.egg-info/
+.idea/
+build/
 dist/
 testing.py
