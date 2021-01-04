@@ -9,7 +9,7 @@ Maintained by [Myer (also known as myerfire, MyerFire)](https://github.com/myerf
 This library is an async wrapper for the [Hypixel API](https://github.com/HypixelDev/PublicAPI).
 It also contains some features and wrappers on relevant features of the [Mojang API and session server](https://wiki.vg/Mojang_API).
 
-## Current Library Features
+## Features
 - Getting a player from Hypixel from UUID, name, or an unknown source (will try to interpret as UUID first, then name)
     - Names will always be converted to a UUID using the Mojang API
 - Getting a player's name history from Mojang from UUID
