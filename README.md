@@ -1,5 +1,5 @@
 # hypixelaPY - Hypixel API wrapper written in Python
-[My Discord Server](https://myer.wtf/discord)
+[![widget](https://inv.wtf/widget/myerfire)](https://myer.wtf/discord)
 
 Maintained by [Myer (also known as myerfire, MyerFire)](https://github.com/myerfire)
 - [YouTube](https://myer.wtf/youtube)
