@@ -9,6 +9,15 @@
 - `get(uuid: str=uuid, name: str=name, input_: str=input_) -> HypixelPlayer` - gets a player from the API
     - this prioritizes `uuid`, then `name`, then `input_`
     - only one input is required for a valid result
+```python
+hypixel = hypixelaPY.Hypixel(API_KEY)
+player = await hypixel.player.get(uuid=uuid)  # will use uuid
+player = await hypixel.player.get(name=name)  # will use name
+player = await hypixel.player.get(uuid=uuid, name=name)  # will use uuid
+player = await hypixel.player.get(input_=input_)  # will use input_
+player = await hypixel.player.get(uuid=uuid, name=name, input_=input_)  # will use uuid
+player = await hypixel.player.get(name=name, input=input_)  # will use name
+```
     
 `HypixelPlayer`:
 - `str(x)` - returns the name of the player
@@ -18,7 +27,7 @@
 - `achievement_points: int` - the player's achievement points
 - `rank: Rank` - the rank data of the player
 - `level: Level` - the network level data of the player
-- `logins: LoginTimes` - the login times of the player
+- `logins: Logins` - the login times of the player
 - `social: Social` - the social media links/names of the player
 - `bedwars: Bedwars` - the Bedwars stats of the player
 - `skywars: Skywars` - the Skywars stats of the player
@@ -36,7 +45,7 @@
 - `next: int` - the next network level of the player
 - `percentage: float` - the percentage of the way the player is to `next`
 
-`LoginTimes`:
+`Logins`:
 - `first: datetime.datetime` - the first login of the player
 - `last: datetime.datetime` - the most recent login of the player
 
