@@ -20,19 +20,6 @@ hypixelaPY is available from the official pYpI package index.
 
 `python -m pip install -U hypixelaPY`
 
-## Documentation
-The base import for hypixelaPY includes `Hypixel`, `Mojang`, and the [exceptions](https://github.com/MyerFire/hypixelaPY/blob/main/hypixelaPY/exceptions.py) here
-
-- `hypixelaPY.Hypixel("api_key")` - the main class of the library
-    - this contains the main features
-    
-### Hypixel Object
-- `Hypixel.player` - wrapper on the player endpoint of the Hypixel API
-
-#### Player Object
-- `Hypixel.player.get(uuid=uuid, name=name, input_=uuid_or_name)`
-    - Gets a HypixelPlayer object
-
 ## Quick Start
 ```python
 from hypixelaPY import Hypixel
@@ -44,9 +31,9 @@ API_KEY = "hahagetbaited"
 
 async def main():
     hypixel = Hypixel(API_KEY)
-    player = await hypixel.get(name="merrymyer")
+    player = await hypixel.get(name="Technoblade")
     print(f"[{player.rank.name}] {player.name}")
 
 if __name__ == "__main__":
-    asyncio.get_event_loop().run_in_executor(main())
+    asyncio.get_event_loop().run_until_complete(main())
 ```
