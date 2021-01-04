@@ -9,13 +9,6 @@ class MojangPlayer:
     """
     The response from a call to the Mojang API
     Represents a player
-
-    Attributes
-    ----------
-    name: :class:`str`
-        The name of the player
-    uuid: :class:`str`
-        The UUID of the player
     """
     def __init__(self, data):
         self.name = data["name"]
@@ -31,8 +24,7 @@ class MojangPlayer:
 class NameHistory:
     """
     The response from a call to the Mojang namehistory API
-    Represents a player's namehistory
-    Iterable
+    Represents a player's namehistory as an iterable
     """
     def __init__(self, data):
         self.data = data
@@ -51,13 +43,6 @@ class NameHistory:
 class NameHistoryEntry:
     """
     Represents a name in the namehistory of a player
-
-    Attributes
-    ----------
-    name: :class:`str`
-        The name
-    time: :class:`datetime.datetime`
-        The time that the name change occurred at
     """
     def __init__(self, data):
         self.name = data["name"]
@@ -71,35 +56,6 @@ class HypixelPlayer:
     """
     The response from a call to the Hypixel player endpoint
     Represents a player
-
-    .. container:: operations
-
-        .. describe::str(x)
-
-            Returns the name of the player
-
-    Attributes
-    ----------
-    name: :class:`str`
-        The name of the player
-    uuid: :class:`str`
-        The UUID of the player
-    rank: :class:`Rank`
-        The Rank data of the player
-    level: :class:`Level`
-        The Level data of the player
-    karma: :class:`int`
-        The player's karma
-    achievement_points: :class:`int`
-        The player's achievement points
-    logins: :class:`LoginTimes`
-        The player's login data
-    social: :class:`Social`
-        The player's social media data
-    bedwars: :class:`Bedwars`
-        The player's Bedwars data
-    skywars: :class:`Skywars`
-        The player's Skywars data
     """
     def __init__(self, data):
         self.name = data.get("player", {}).get("displayname")
@@ -108,7 +64,7 @@ class HypixelPlayer:
         self.level = Level(data)
         self.karma = data.get("player", {}).get("karma", 0)
         self.achievement_points = data.get("player", {}).get("achievementPoints", 0)
-        self.logins = LoginTimes(data)
+        self.logins = Logins(data)
         self.social = Social(data)
         self.bedwars = Bedwars(data)
         self.skywars = Skywars(data)
@@ -118,13 +74,9 @@ class HypixelPlayer:
         return self.name
 
 
-class LoginTimes:
+class Logins:
     """
     The login times of a player
-
-    Attributes
-    ----------
-
     """
     def __init__(self, data):
         self.first = datetime.datetime.fromtimestamp(data.get("player", {}).get("firstLogin", 0) / 1000)
@@ -132,6 +84,9 @@ class LoginTimes:
 
 
 class Social:
+    """
+    The social media links of a player
+    """
     def __init__(self, data):
         self.twitter = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("TWITTER")
         self.youtube = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("YOUTUBE")
@@ -142,6 +97,9 @@ class Social:
 
 
 class Rank:
+    """
+    The rank data of a player
+    """
     def __init__(self, data):
         self.name = utils.get_rank(
             data.get("player", {}).get("rank"),
