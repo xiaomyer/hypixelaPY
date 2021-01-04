@@ -11,7 +11,7 @@ async def get_player_by_uuid(uuid: str, api: str) -> HypixelPlayer:
         json = await (await session.get(f"{HYPIXEL_API}/player?key={api}&uuid={uuid}")).json()
         if not json["success"] or not json["player"]:  # hypixel apiTM; sometimes success is false sometimes player
             # is null
-            raise NoPlayerFoundError
+            raise NoPlayerFoundError(uuid)
     return HypixelPlayer(json)
 
 

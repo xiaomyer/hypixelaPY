@@ -1,5 +1,4 @@
 from .. import hypixel
-import asyncio
 
 
 class Leaderboards:
@@ -18,7 +17,7 @@ class Leaderboard:
         self.location = data["location"]
         self.count = data["count"]
         self.players = data["leaders"]
-        self.name = f"UHC {self.prefix} {self.title}"
+        self.name = f"{self.prefix} {self.title}"
 
     def __str__(self):
         return self.name

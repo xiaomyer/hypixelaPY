@@ -72,6 +72,29 @@ class Leaderboards:
 
 
 class Mojang:
+    async def get(self, *, uuid: str = "", name: str = "", input_: str = ""):
+        """
+        Takes various inputs and tries to get a user
+        This prioritizes UUID, then name, then an input wildcard that could be either name or UUID
+
+        :param uuid: A Minecraft account UUID
+        :param name: A Minecraft account's name that will be converted to a
+        UUID with the Mojang API
+        :param input_: A wildcard that could be either a UUID or a name. The library will
+        try to interpret this as a uuid first, and will fallback to interpreting as a name
+        """
+        if bool(uuid):
+            return await self.get_player_by_uuid(uuid)
+        elif bool(name):
+            return await self.get_player_by_name(name)
+        elif bool(input_):
+            try:
+                return await self.get_player_by_uuid(input_)
+            except NoPlayerFoundError:
+                return await self.get_player_by_name(input_)  # has the possibly of erroring with NoPlayerFoundError
+        else:
+            raise NoInputError
+
     async def get_player_by_name(self, name: str):
         """
         Gets the UUID of a player from a name
@@ -80,6 +103,15 @@ class Mojang:
         :return: MojangPlayer
         """
         return await mojang.get_player_by_name(name)
+
+    async def get_player_by_uuid(self, uuid: str):
+        """
+        Gets the UUID of a player from a name
+
+        :param uuid: A Minecraft account's UUID
+        :return: MojangPlayer
+        """
+        return await mojang.get_player_by_uuid(uuid)
 
     async def get_player_name_history(self, uuid: str):
         """

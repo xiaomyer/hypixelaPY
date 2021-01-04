@@ -5,7 +5,7 @@ with open("README.md") as readme:
 
 setuptools.setup(
     name="hypixelaPY",
-    version="0.1.1",
+    version="0.2.9",
     author="myerfire",
     author_email="realmyerfire@gmail.com",
     description="An API wrapper for the Hypixel API",

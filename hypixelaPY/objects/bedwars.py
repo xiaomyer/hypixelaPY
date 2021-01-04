@@ -1,4 +1,5 @@
 from .. import utils
+from .stats import KillsDeaths, FinalKillsDeaths, WinsLosses, Ratio
 
 
 class Bedwars:
@@ -38,6 +39,7 @@ class Bedwars:
 class Prestige:
     def __init__(self, star):
         self.star = star
+        self.next = star + 1
         self.star_index = star // 100
         self.name = utils.get_bedwars_prestige_name(self.star_index)
         self.color = utils.get_bedwars_prestige_color(self.star_index)
@@ -54,40 +56,7 @@ class BedsBrokenLost:
     def __init__(self, broken, lost):
         self.broken = broken
         self.lost = lost
-        self.ratio = utils.get_ratio(broken, lost)
-
-    def increase(self, *, amount: int = 0):
-        return utils.get_increase(self.broken, self.lost, amount=amount)
-
-
-class KillsDeaths:
-    def __init__(self, kills, deaths):
-        self.kills = kills
-        self.deaths = deaths
-        self.ratio = utils.get_ratio(kills, deaths)
-
-    def increase(self, *, amount: int = 0):
-        return utils.get_increase(self.kills, self.deaths, amount=amount)
-
-
-class FinalKillsDeaths:
-    def __init__(self, kills, deaths):
-        self.kills = kills
-        self.deaths = deaths
-        self.ratio = utils.get_ratio(kills, deaths)
-
-    def increase(self, *, amount: int = 0):
-        return utils.get_increase(self.kills, self.deaths, amount=amount)
-
-
-class WinsLosses:
-    def __init__(self, wins, losses):
-        self.wins = wins
-        self.losses = losses
-        self.ratio = utils.get_ratio(wins, losses)
-
-    def increase(self, *, amount: int = 0):
-        return utils.get_increase(self.wins, self.losses, amount=amount)
+        self.ratio = Ratio(self.broken, self.lost)
 
 
 # regular modes

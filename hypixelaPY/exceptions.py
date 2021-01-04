@@ -3,7 +3,8 @@ class NoInputError(Exception):
 
 
 class NoPlayerFoundError(Exception):
-    pass
+    def __init__(self, input_):
+        self.input_ = input_
 
 
 class NoAPIKeyError(Exception):
