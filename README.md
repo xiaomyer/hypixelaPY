@@ -1,5 +1,5 @@
 # hypixelaPY - Hypixel API wrapper written in Python
-[My Discord Server](https://myer.wtf/discord)
+[![widget](https://inv.wtf/widget/myerfire)](https://myer.wtf/discord)
 
 Maintained by [Myer (also known as myerfire, MyerFire)](https://github.com/myerfire)
 - [YouTube](https://myer.wtf/youtube)
@@ -31,7 +31,7 @@ API_KEY = "hahagetbaited"
 
 async def main():
     hypixel = Hypixel(API_KEY)
-    player = await hypixel.get(name="Technoblade")
+    player = await hypixel.player.get(name="Technoblade")
     print(f"[{player.rank.name}] {player.name}")
 
 if __name__ == "__main__":

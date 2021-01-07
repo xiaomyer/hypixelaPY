@@ -1,3 +1,27 @@
+"""
+MIT License
+
+Copyright (c) 2020 myerfire
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 import math
 import re
 
@@ -124,6 +148,12 @@ skywars_prestige_colors = (
 )
 
 
+guild_tag_colors = {
+    "DARK_GREEN": int("00AA00", 16),
+    "YELLOW": int("FFFF55", 16)
+}
+
+
 def get_ratio(positive_stat, negative_stat):
     try:
         ratio = positive_stat / negative_stat
@@ -149,6 +179,11 @@ def get_increase(positive_stat, negative_stat, *, amount: int = 0):
     return round(needed)
 
 
+def get_level_percentage(level: float):
+    # i wrote this months ago so idk but it's probably just math tho
+    return round((level - math.trunc(level)) * 100, 2)
+
+
 def get_network_level(experience):
     # formula that i don't understand
     # thank you @littlemxantivirus
@@ -159,11 +194,6 @@ def get_network_level_exact(experience):
     # formula that i don't understand
     # thank you @littlemxantivirus
     return (math.sqrt(experience + 15312.5) - 88.38834764831843) / 35.35533905932738
-
-
-def get_level_percentage(level: float):
-    # i wrote this months ago so idk but it's probably just math tho
-    return round((level - math.trunc(level)) * 100, 2)
 
 
 def get_bedwars_prestige_name(star_index):
@@ -232,3 +262,61 @@ def get_rank(rank, prefix_raw, monthly_package_rank, new_package_rank, package_r
 
 def get_rank_color(rank):
     return rank_colors[rank]
+
+
+def get_profile_display(name, rank):
+    # returns either "[rank] name" or "name" depending on whether the player has a rank
+    if bool(rank):
+        return f"[{rank}] {name}"
+    else:
+        return name
+
+
+def get_guild_level(experience):
+    return math.trunc(get_guild_level_exact(experience))
+
+
+def get_guild_level_exact(experience):
+    # credit for original formula to @Sk1er, translated into Kotlin by
+    # @littlemxantivirus,
+    # then translated into Python by @SirNapkin1334
+    experience_below_14 = [
+        100000,
+        150000,
+        250000,
+        500000,
+        750000,
+        1000000,
+        1250000,
+        1500000,
+        2000000,
+        2500000,
+        2500000,
+        2500000,
+        2500000,
+        2500000
+    ]
+    c = 0.0
+    for it in experience_below_14:
+        if it > experience:
+            level = c + round(experience / it * 100.0) / 100.0
+        experience -= it
+        c += 1
+
+        increment = 3000000
+    while experience > increment:
+        c += 1
+        experience -= increment
+    level = c + (round(experience / increment * 100.0) / 100.0)
+    return level
+
+
+def get_guild_display(name, tag):
+    if tag:
+        return f"[{tag}] {name}"
+    else:
+        return name
+
+
+def get_guild_tag_color(color):
+    return guild_tag_colors.get(color)

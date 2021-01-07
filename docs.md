@@ -1,5 +1,5 @@
 # Documentation
-`hypixelaPY.Hypixel(api_key)`:
+`hypixelaPY.Hypixel(api)`:
 - `api: str` - the provided api key
 - `player: Player` - wrapper on the player method of the Hypixel API
 - `leaderboards: Leaderboards` - wrapper on the leaderboards method of the Hypixel API

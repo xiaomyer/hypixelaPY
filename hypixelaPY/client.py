@@ -1,4 +1,28 @@
-from .exceptions import NoInputError, NoPlayerFoundError
+"""
+MIT License
+
+Copyright (c) 2020 myerfire
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
+from .exceptions import NoInputError, NoPlayerFoundError, NoGuildFoundError
 from . import hypixel, mojang
 
 
@@ -10,7 +34,11 @@ class Hypixel:
 
     def __init__(self, api: str):
         self.api = api
+        self.key = hypixel.get_api_stats(self.api)
+        # this could error with InvalidAPIKeyError
+        # this acts as a check to see if the API key provided was valid and also will contain the stats of the key
         self.player = Player(self.api)
+        self.guild = Guild(self.api)
         self.leaderboards = Leaderboards(self.api)
 
 
@@ -34,18 +62,18 @@ class Player:
         try to interpret this as a uuid first, and will fallback to interpreting as a name
         """
         if bool(uuid):
-            return await self.get_player_by_uuid(uuid)
+            return await self.get_by_uuid(uuid)
         elif bool(name):
-            return await self.get_player_by_name(name)
+            return await self.get_by_name(name)
         elif bool(input_):
             try:
-                return await self.get_player_by_uuid(input_)
+                return await self.get_by_uuid(input_)
             except NoPlayerFoundError:
-                return await self.get_player_by_name(input_)  # has the possibly of erroring with NoPlayerFoundError
+                return await self.get_by_name(input_)  # has the possibly of erroring with NoPlayerFoundError
         else:
             raise NoInputError
 
-    async def get_player_by_uuid(self, uuid: str):
+    async def get_by_uuid(self, uuid: str):
         """
         Directly queries Hypixel with a provided UUID
 
@@ -53,7 +81,7 @@ class Player:
         """
         return await hypixel.get_player_by_uuid(uuid, self.api)
 
-    async def get_player_by_name(self, name: str):
+    async def get_by_name(self, name: str):
         """
         Queries Mojang for the UUID of the player name provided, then queries Hypixel with the newly obtained UUID
 
@@ -71,6 +99,44 @@ class Leaderboards:
         return await hypixel.get_leaderboards(self.api)
 
 
+class Guild:
+    def __init__(self, api):
+        self.api = api
+
+    async def get(self, *, name: str = "", uuid: str = "", input_: str = ""):
+        if bool(name):
+            return await self.get_by_name(name)
+        elif bool(uuid):
+            return await self.get_by_uuid(uuid)
+        elif bool(input_):
+            try:
+                return await self.get_by_name(input_)
+            except NoGuildFoundError:
+                return await self.get_by_uuid(input_)  # has the possibility of erroring with NoGuildFoundError
+        else:
+            raise NoInputError
+
+    async def get_by_uuid(self, uuid: str):
+        """
+        Gets a guild from a player UUID
+
+        :param uuid: A player's uuid
+        :param name: A guild name
+        :return: Guild
+        """
+        return await hypixel.get_guild_by_player_uuid(uuid, self.api)
+
+    async def get_by_name(self, name: str):
+        """
+        Gets a guild from a guild name
+
+        :param uuid: A player's uuid
+        :param name: A guild name
+        :return: Guild
+        """
+        return await hypixel.get_guild_by_name(name, self.api)
+
+
 class Mojang:
     async def get(self, *, uuid: str = "", name: str = "", input_: str = ""):
         """
@@ -84,18 +150,18 @@ class Mojang:
         try to interpret this as a uuid first, and will fallback to interpreting as a name
         """
         if bool(uuid):
-            return await self.get_player_by_uuid(uuid)
+            return await self.get_by_uuid(uuid)
         elif bool(name):
-            return await self.get_player_by_name(name)
+            return await self.get_by_name(name)
         elif bool(input_):
             try:
-                return await self.get_player_by_uuid(input_)
+                return await self.get_by_uuid(input_)
             except NoPlayerFoundError:
-                return await self.get_player_by_name(input_)  # has the possibly of erroring with NoPlayerFoundError
+                return await self.get_by_name(input_)  # has the possibility of erroring with NoPlayerFoundError
         else:
             raise NoInputError
 
-    async def get_player_by_name(self, name: str):
+    async def get_by_name(self, name: str):
         """
         Gets the UUID of a player from a name
 
@@ -104,7 +170,7 @@ class Mojang:
         """
         return await mojang.get_player_by_name(name)
 
-    async def get_player_by_uuid(self, uuid: str):
+    async def get_by_uuid(self, uuid: str):
         """
         Gets the UUID of a player from a name
 
@@ -113,7 +179,7 @@ class Mojang:
         """
         return await mojang.get_player_by_uuid(uuid)
 
-    async def get_player_name_history(self, uuid: str):
+    async def get_name_history(self, uuid: str):
         """
         Gets the name history of a Minecraft account from a UUID
 

@@ -22,16 +22,22 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-__title__ = "hypixelaPY"
-__author__ = "myerfire"
-__license__ = "MIT"
-__version__ = "1.1.1"
+from .stats import WinsLosses, KillsDeaths
 
-from .exceptions import *
-from .client import Hypixel, Mojang
-from .objects import bedwars
-from .objects import duels
-from .objects import leaderboards
-from .objects import skywars
-from .objects import stats
-from . import utils
+
+class Blitz:
+    def __init__(self, data):
+        self.name = "Blitz"
+        self.coins = data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("coins", 0)
+        self.games_played = data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("games_played", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("kills", 0),
+            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("deaths", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("wins", 0),
+            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("deaths", 0)
+        )
+
+    def __str__(self):
+        return self.name

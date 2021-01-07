@@ -1,8 +1,47 @@
+"""
+MIT License
+
+Copyright (c) 2020 myerfire
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+"""
+
 from .bedwars import Bedwars
 from .skywars import Skywars
+from .blitz import Blitz
 from .duels import Duels
 import datetime
-from .. import utils
+from .. import hypixel, utils
+
+
+class APIKey:
+    def __init__(self, data):
+        self.key = data.get("record", {}).get("key")
+        self.owner = data.get("record", {}).get("owner")
+        self.limit = data.get("record", {}).get("limit")
+        self.queries = APIKeyQueries(data)
+
+
+class APIKeyQueries:
+    def __init__(self, data):
+        self.minute = data.get("record", {}).get("queriesInPastMin")
+        self.all = data.get("record", {}).get("queries")
 
 
 class MojangPlayer:
@@ -16,9 +55,6 @@ class MojangPlayer:
 
     def __str__(self):
         return self.name
-
-    def __int__(self):
-        return self.uuid
 
 
 class NameHistory:
@@ -61,13 +97,15 @@ class HypixelPlayer:
         self.name = data.get("player", {}).get("displayname")
         self.uuid = data.get("player", {}).get("uuid")
         self.rank = Rank(data)
-        self.level = Level(data)
+        self.display = utils.get_profile_display(self.name, self.rank)
+        self.level = Level(data.get("player", {}).get("networkExp"))
         self.karma = data.get("player", {}).get("karma", 0)
         self.achievement_points = data.get("player", {}).get("achievementPoints", 0)
         self.logins = Logins(data)
         self.social = Social(data)
         self.bedwars = Bedwars(data)
         self.skywars = Skywars(data)
+        self.blitz = Blitz(data)
         self.duels = Duels(data)
 
     def __str__(self):
@@ -118,8 +156,11 @@ class Rank:
 
 
 class Level:
-    def __init__(self, data):
-        self.exact = utils.get_network_level_exact(data.get("player", {}).get("networkExp"))
-        self.level = utils.get_network_level(data.get("player", {}).get("networkExp"))
+    def __init__(self, experience):
+        self.exact = utils.get_network_level_exact(experience)
+        self.level = utils.get_network_level(experience)
         self.next = self.level + 1
         self.percentage = utils.get_level_percentage(self.exact)
+
+    def __int__(self):
+        return self.level
