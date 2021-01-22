@@ -225,6 +225,9 @@ class Dreams:
         self.armed = Armed(data)
         self.castle = Castle(data)
         self.lucky = LuckyBlocks(data)
+        self.rush = Rush(data)
+        self.ultimate = Ultimate(data)
+        self.voidless = Voidless(data)
 
 
 class Armed:

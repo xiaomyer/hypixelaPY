@@ -161,7 +161,8 @@ class Mojang:
         else:
             raise NoInputError
 
-    async def get_by_name(self, name: str):
+    @staticmethod
+    async def get_by_name(name: str):
         """
         Gets the UUID of a player from a name
 
@@ -170,7 +171,8 @@ class Mojang:
         """
         return await mojang.get_player_by_name(name)
 
-    async def get_by_uuid(self, uuid: str):
+    @staticmethod
+    async def get_by_uuid(uuid: str):
         """
         Gets the UUID of a player from a name
 
@@ -179,7 +181,8 @@ class Mojang:
         """
         return await mojang.get_player_by_uuid(uuid)
 
-    async def get_name_history(self, uuid: str):
+    @staticmethod
+    async def get_name_history(uuid: str):
         """
         Gets the name history of a Minecraft account from a UUID
 

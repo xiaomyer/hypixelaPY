@@ -25,13 +25,9 @@ SOFTWARE.
 __title__ = "hypixelaPY"
 __author__ = "myerfire"
 __license__ = "MIT"
-__version__ = "1.1.1"
+__version__ = "1.1.3"
 
 from .exceptions import *
 from .client import Hypixel, Mojang
-from .objects import bedwars
-from .objects import duels
-from .objects import leaderboards
-from .objects import skywars
-from .objects import stats
+from .objects import *
 from . import utils
