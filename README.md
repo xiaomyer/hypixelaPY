@@ -20,6 +20,9 @@ hypixelaPY is available from the official pYpI package index.
 
 `python -m pip install -U hypixelaPY`
 
+## Documentation
+See [docs.md](https://github.com/MyerFire/hypixelaPY/blob/main/docs.md)
+
 ## Quick Start
 ```python
 from hypixelaPY import Hypixel
