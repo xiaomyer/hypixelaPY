@@ -59,6 +59,21 @@ any attribute in this class could be `None`
 - `discord: str` - the Discord name or link of the player
 - `hypixel_forums: str` - the Hypixel Forums link of the player
 
+Any stat class like `WinsLosses` or `FinalKillsDeaths` have the following attributes:
+- `kills/wins`
+  - the name of the positive stat
+- `deaths/losses`
+  - the name of the negative stat
+- `ratio: Ratio`
+  - the ratio of positive to negative stats
+  
+`Ratio`:
+- `positive_stat: int` - the numerator of the ratio
+- `negative_stat: int` - the denominator of the ratio
+- `ratio: float` - the ratio rounded to two decimal points
+- `next:` - the ratio increased by one exactly
+- `increase(amount=0)` - calculates how many more of `positive_stat` is required to increase the ratio by `increase` (default increase will go to next integer)
+
 ### Bedwars
 These classes all have the following stat attributes (all but `prestige`, `coins`, `solo`, `doubles`, etc):
 - `Solo`
@@ -96,7 +111,7 @@ These classes all have the following stat attributes (all but `prestige`, `coins
 
 ```python
 hypixel = hypixelaPY.Hypixel(API_KEY)
-player = await hypixel.player.get(uuid=uuid)  # will use uuid
+player = await hypixel.player.get(uuid=uuid)
 print(player.bedwars.prestige.star)
 print(player.bedwars.games_played)
 print(player.bedwars.solo.games_played)
