@@ -41,7 +41,7 @@ class APIKey:
 class APIKeyQueries:
     def __init__(self, data):
         self.minute = data.get("record", {}).get("queriesInPastMin")
-        self.all = data.get("record", {}).get("queries")
+        self.all = data.get("record", {}).get("totalQueries")
 
 
 class MojangPlayer:

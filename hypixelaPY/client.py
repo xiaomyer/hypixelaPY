@@ -22,6 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import asyncio
 from .exceptions import NoInputError, NoPlayerFoundError, NoGuildFoundError
 from . import hypixel, mojang
 
@@ -34,7 +35,7 @@ class Hypixel:
 
     def __init__(self, api: str):
         self.api = api
-        self.key = hypixel.get_api_stats(self.api)
+        self.key = asyncio.get_event_loop().run_until_complete(hypixel.get_api_stats(self.api))
         # this could error with InvalidAPIKeyError
         # this acts as a check to see if the API key provided was valid and also will contain the stats of the key
         self.player = Player(self.api)

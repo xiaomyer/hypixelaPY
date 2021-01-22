@@ -33,7 +33,7 @@ HYPIXEL_API = "https://api.hypixel.net"
 
 async def get_api_stats(api: str) -> APIKey:
     async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/api?key={api}")).json()
+        json = await (await session.get(f"{HYPIXEL_API}/key?key={api}")).json()
     if not json["success"]:
         raise InvalidAPIKeyError(api)
     return APIKey(json)
