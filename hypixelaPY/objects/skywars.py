@@ -52,8 +52,8 @@ class Prestige:
     def __init__(self, experience):
         self.exact = utils.get_skywars_level_exact(experience)
         self.star = utils.get_skywars_level(experience)
+        self.star_index = self.star // 5
         self.name = utils.get_skywars_prestige_name(self.star_index)
         self.next = self.star + 1
-        self.star_index = self.star // 5
         self.percentage = utils.get_level_percentage(self.exact)
         self.color = utils.get_skywars_prestige_color(self.star_index)

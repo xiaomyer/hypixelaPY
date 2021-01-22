@@ -11,7 +11,7 @@
     - this prioritizes `uuid`, then `name`, then `input_`
     - only one input is required for a valid result
 ```python
-hypixel = hypixelaPY.Hypixel(API_KEY)
+hypixel = await hypixelaPY.Hypixel(API_KEY)
 player = await hypixel.player.get(uuid=uuid)  # will use uuid
 player = await hypixel.player.get(name=name)  # will use name
 player = await hypixel.player.get(uuid=uuid, name=name)  # will use uuid
@@ -110,7 +110,7 @@ These classes all have the following stat attributes (all but `prestige`, `coins
 
 
 ```python
-hypixel = hypixelaPY.Hypixel(API_KEY)
+hypixel = await hypixelaPY.Hypixel(API_KEY)
 player = await hypixel.player.get(uuid=uuid)
 print(player.bedwars.prestige.star)
 print(player.bedwars.games_played)

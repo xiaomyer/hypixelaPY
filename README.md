@@ -33,7 +33,7 @@ API_KEY = "hahagetbaited"
 # with your API key obtained by running /api new on Hypixel
 
 async def main():
-    hypixel = Hypixel(API_KEY)
+    hypixel = await Hypixel(API_KEY)
     player = await hypixel.get(name="Technoblade")
     print(f"[{player.rank.name}] {player.name}")
 
