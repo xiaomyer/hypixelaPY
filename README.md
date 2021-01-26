@@ -34,7 +34,7 @@ API_KEY = "hahagetbaited"
 
 async def main():
     hypixel = await Hypixel(API_KEY)
-    player = await hypixel.get(name="Technoblade")
+    player = await hypixel.player.get(name="Technoblade")
     print(f"[{player.rank.name}] {player.name}")
 
 if __name__ == "__main__":
