@@ -75,7 +75,7 @@ Any stat class like `WinsLosses` or `FinalKillsDeaths` have the following attrib
 - `increase(amount=0)` - calculates how many more of `positive_stat` is required to increase the ratio by `increase` (default increase will go to next integer)
 
 ### Bedwars
-These classes all have the following stat attributes (all but `prestige`, `coins`, `solo`, `doubles`, etc):
+These classes all have the following stat attributes (excluding `prestige`, `coins`, `solo`, `doubles`, etc):
 - `Solo`
 - `Doubles`
 - `Threes`
