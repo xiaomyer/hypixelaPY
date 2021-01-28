@@ -22,12 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import datetime
+
 from .bedwars import Bedwars
-from .skywars import Skywars
 from .blitz import Blitz
 from .duels import Duels
-import datetime
-from .. import hypixel, utils
+from .skywars import Skywars
+from .. import utils
 
 
 class APIKey:
