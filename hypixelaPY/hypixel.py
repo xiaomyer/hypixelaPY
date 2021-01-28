@@ -32,16 +32,16 @@ HYPIXEL_API = "https://api.hypixel.net"
 
 
 async def get_api_stats(api: str) -> APIKey:
-    async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/key?key={api}")).json()
+    async with aiohttp.request("GET", f"{HYPIXEL_API}/key?key={api}") as response:
+        json = await response.json()
     if not json["success"]:
         raise InvalidAPIKeyError(api)
     return APIKey(json)
 
 
 async def get_player_by_uuid(uuid: str, api: str) -> HypixelPlayer:
-    async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/player?key={api}&uuid={uuid}")).json()
+    async with aiohttp.request("GET", f"{HYPIXEL_API}/player?key={api}&uuid={uuid}") as response:
+        json = await response.json()
     if not json["success"] or not json["player"]:  # hypixel apiTM; sometimes success is false sometimes player
         # is null
         raise NoPlayerFoundError(uuid)
@@ -49,15 +49,15 @@ async def get_player_by_uuid(uuid: str, api: str) -> HypixelPlayer:
 
 
 async def get_leaderboards(api: str) -> Leaderboards:
-    async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/leaderboards?key={api}")).json()
+    async with aiohttp.request("GET", f"{HYPIXEL_API}/leaderboards?key={api}") as response:
+        json = await response.json()
     # theoretically this shouldn't error ever, there is no input to be invalid it should be static
     return Leaderboards(api, json)
 
 
 async def get_guild_by_player_uuid(uuid: str, api: str) -> Guild:
-    async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/guild?key={api}&player={uuid}")).json()
+    async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&player={uuid}") as response:
+        json = await response.json()
     if not json["success"] or not json["guild"]: # hypixel apiTM; sometimes success is false sometimes guild
         # is null
         raise NoGuildFoundError(uuid)
@@ -65,8 +65,8 @@ async def get_guild_by_player_uuid(uuid: str, api: str) -> Guild:
 
 
 async def get_guild_by_name(name: str, api: str) -> Guild:
-    async with aiohttp.ClientSession() as session:
-        json = await (await session.get(f"{HYPIXEL_API}/guild?key={api}&name={name}")).json()
+    async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&name={name}") as response:
+        json = await response.json()
     if not json["success"] or not json["guild"]: # hypixel apiTM; sometimes success is false sometimes guild
         # is null
         raise NoGuildFoundError(name)
