@@ -50,6 +50,7 @@ class MojangPlayer:
     The response from a call to the Mojang API
     Represents a player
     """
+
     def __init__(self, data):
         self.name = data["name"]
         self.uuid = data["id"]
@@ -63,6 +64,7 @@ class NameHistory:
     The response from a call to the Mojang namehistory API
     Represents a player's namehistory as an iterable
     """
+
     def __init__(self, data):
         self.data = data
 
@@ -81,6 +83,7 @@ class NameHistoryEntry:
     """
     Represents a name in the namehistory of a player
     """
+
     def __init__(self, data):
         self.name = data["name"]
         self.time = datetime.datetime.fromtimestamp(data["changedToAt"] / 1000)
@@ -94,6 +97,7 @@ class HypixelPlayer:
     The response from a call to the Hypixel player endpoint
     Represents a player
     """
+
     def __init__(self, data):
         self.name = data.get("player", {}).get("displayname")
         self.uuid = data.get("player", {}).get("uuid")
@@ -117,6 +121,7 @@ class Logins:
     """
     The login times of a player
     """
+
     def __init__(self, data):
         self.first = datetime.datetime.fromtimestamp(data.get("player", {}).get("firstLogin", 0) / 1000)
         self.last = datetime.datetime.fromtimestamp(data.get("player", {}).get("lastLogin", 0) / 1000)
@@ -126,6 +131,7 @@ class Social:
     """
     The social media links of a player
     """
+
     def __init__(self, data):
         self.twitter = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("TWITTER")
         self.youtube = data.get("player", {}).get("socialMedia", {}).get("links", {}).get("YOUTUBE")
@@ -139,6 +145,7 @@ class Rank:
     """
     The rank data of a player
     """
+
     def __init__(self, data):
         self.name = utils.get_rank(
             data.get("player", {}).get("rank"),

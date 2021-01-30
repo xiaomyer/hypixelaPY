@@ -23,6 +23,7 @@ SOFTWARE.
 """
 
 import datetime
+
 from .. import hypixel, utils
 
 

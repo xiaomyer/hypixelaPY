@@ -22,9 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
+import aiohttp
+
 from .exceptions import NoPlayerFoundError
 from .objects.objects import MojangPlayer, NameHistory
-import aiohttp
 
 MOJANG_API = "https://api.mojang.com"
 MOJANG_SESSION_SERVER = "https://sessionserver.mojang.com"
@@ -38,7 +39,8 @@ async def get_player_by_name(name: str) -> MojangPlayer:
 
 
 async def get_player_by_uuid(uuid: str) -> MojangPlayer:
-    async with aiohttp.request("GET", f"{MOJANG_SESSION_SERVER}/session/minecraft/profile/{uuid.replace('-', '')}") as response:
+    async with aiohttp.request("GET",
+                               f"{MOJANG_SESSION_SERVER}/session/minecraft/profile/{uuid.replace('-', '')}") as response:
         if response.status != 200:
             raise NoPlayerFoundError(uuid)
     return MojangPlayer(await response.json())

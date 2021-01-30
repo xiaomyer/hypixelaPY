@@ -29,7 +29,8 @@ from .. import utils
 class Skywars:
     def __init__(self, data):
         self.name = "Skywars"
-        self.prestige = Prestige(data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("skywars_experience", 0))
+        self.prestige = Prestige(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("skywars_experience", 0))
         self.games_played = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("games_played_skywars", 0)
         self.coins = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("coins", 0)
         self.tokens = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("cosmetic_tokens", 0)

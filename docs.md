@@ -1,15 +1,21 @@
 # Documentation
+
 `hypixelaPY.Hypixel(api)`:
+
 - `api: str` - the provided api key
 - `player: Player` - wrapper on the player method of the Hypixel API
 - `leaderboards: Leaderboards` - wrapper on the leaderboards method of the Hypixel API
 
 ## Player
+
 ### Overall
+
 `Player`:
+
 - `get(uuid: str=uuid, name: str=name, input_: str=input_) -> HypixelPlayer` - gets a player from the API
     - this prioritizes `uuid`, then `name`, then `input_`
     - only one input is required for a valid result
+
 ```python
 hypixel = await hypixelaPY.Hypixel(API_KEY)
 player = await hypixel.player.get(uuid=uuid)  # will use uuid
@@ -19,8 +25,9 @@ player = await hypixel.player.get(input_=input_)  # will use input_
 player = await hypixel.player.get(uuid=uuid, name=name, input_=input_)  # will use uuid
 player = await hypixel.player.get(name=name, input=input_)  # will use name
 ```
-    
+
 `HypixelPlayer`:
+
 - `str(x)` - returns the name of the player
 - `name: str` - the name of the player
 - `uuid: str` - the UUId of the player
@@ -35,23 +42,27 @@ player = await hypixel.player.get(name=name, input=input_)  # will use name
 - `duels: Duels` - the Duels stats of the player
 
 `Rank`:
+
 - `str(x)` - returns the rank name
 - `bool(x)` - checks whether a rank exists
 - `name: str, None` - the rank name
 - `color: int` - the color as a hexadecimal int
 
 `Level`:
+
 - `exact: float` - the exact network level of the player
 - `level: int` - the network level of the player
 - `next: int` - the next network level of the player
 - `percentage: float` - the percentage of the way the player is to `next`
 
 `Logins`:
+
 - `first: datetime.datetime` - the first login of the player
 - `last: datetime.datetime` - the most recent login of the player
 
 `Social`:
 any attribute in this class could be `None`
+
 - `twitter: str` - the Twitter link of the player
 - `youtube: str` - the YouTube link of the player
 - `instagram: str` - the Instagram link of the player
@@ -60,22 +71,27 @@ any attribute in this class could be `None`
 - `hypixel_forums: str` - the Hypixel Forums link of the player
 
 Any stat class like `WinsLosses` or `FinalKillsDeaths` have the following attributes:
+
 - `kills/wins`
-  - the name of the positive stat
+    - the name of the positive stat
 - `deaths/losses`
-  - the name of the negative stat
+    - the name of the negative stat
 - `ratio: Ratio`
-  - the ratio of positive to negative stats
-  
+    - the ratio of positive to negative stats
+
 `Ratio`:
+
 - `positive_stat: int` - the numerator of the ratio
 - `negative_stat: int` - the denominator of the ratio
 - `ratio: float` - the ratio rounded to two decimal points
 - `next:` - the ratio increased by one exactly
-- `increase(amount=0)` - calculates how many more of `positive_stat` is required to increase the ratio by `increase` (default increase will go to next integer)
+- `increase(amount=0)` - calculates how many more of `positive_stat` is required to increase the ratio by `increase` (
+  default increase will go to next integer)
 
 ### Bedwars
+
 These classes all have the following stat attributes (excluding `prestige`, `coins`, `solo`, `doubles`, etc):
+
 - `Solo`
 - `Doubles`
 - `Threes`
@@ -85,6 +101,7 @@ These classes all have the following stat attributes (excluding `prestige`, `coi
 - the dreams ones
 
 `Bedwars`:
+
 - `prestige: Prestige` - the star level and prestige of the player
 - `coins: int` - the Bedwars coins of the player
 - `games_played: int` - the amount of Bedwars games the player has played
@@ -100,14 +117,15 @@ These classes all have the following stat attributes (excluding `prestige`, `coi
 - `four_v_four: FourVFour` - the 4v4 Bedwars stats of the player
 - `dreams: Dreams` - the dreams Bedwars stats of the player
 
-`Dreams`: All of these classes other than castle have attributes of `solo` or `double` depending on what modes exist. These will have the same attributes as the `Solo` and `Doubles` objects listed above
+`Dreams`: All of these classes other than castle have attributes of `solo` or `double` depending on what modes exist.
+These will have the same attributes as the `Solo` and `Doubles` objects listed above
+
 - `armed`
 - `castle`
 - `lucky`
 - `rush`
 - `ultimate`
 - `voidless`
-
 
 ```python
 hypixel = await hypixelaPY.Hypixel(API_KEY)

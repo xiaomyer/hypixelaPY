@@ -27,7 +27,7 @@ __author__ = "myerfire"
 __license__ = "MIT"
 __version__ = "1.2.5"
 
-from .exceptions import *
-from .client import Hypixel, Mojang
-from .objects import *
 from . import utils
+from .client import Hypixel, Mojang
+from .exceptions import *
+from .objects import *

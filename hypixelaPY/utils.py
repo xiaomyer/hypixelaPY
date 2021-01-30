@@ -147,7 +147,6 @@ skywars_prestige_colors = (
     int("AA00AA", 16),  # last two prestiges use the same color
 )
 
-
 guild_tag_colors = {
     "DARK_GREEN": int("00AA00", 16),
     "YELLOW": int("FFFF55", 16)
