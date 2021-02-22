@@ -41,6 +41,7 @@ class Duels:
         )
         self.bow = Bow(data)
         self.classic = Classic(data)
+        self.uhc = UHC(data)
 
     def __str__(self):
         return self.name
@@ -76,6 +77,67 @@ class Classic:
         self.wins = WinsLosses(
             data.get("player", {}).get("stats", {}).get("Duels", {}).get("classic_duel_wins", 0),
             data.get("player", {}).get("stats", {}).get("Duels", {}).get("classic_duel_losses", 0)
+        )
+
+    def __str__(self):
+        return self.name
+
+
+class UHC:
+    def __init__(self, data):
+        self.solo = SoloUHC(data)
+        self.doubles = DoublesUHC(data)
+        self.fours = FoursUHC(data)
+
+
+class SoloUHC:
+    def __init__(self, data):
+        self.name = "UHC"
+        self.games_played = data.get("uhc_duel_rounds_played", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Duels", {}).get("current_uhc_winstreak", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_duel_kills", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_duel_deaths", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_duel_wins", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_duel_losses", 0)
+        )
+
+    def __str__(self):
+        return self.name
+
+
+class DoublesUHC:
+    def __init__(self, data):
+        self.name = "UHC"
+        self.games_played = data.get("uhc_doubles_rounds_played", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Duels", {}).get("current_uhc_doubles_winstreak", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_doubles_kills", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_doubles_deaths", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_doubles_wins", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_doubles_losses", 0)
+        )
+
+    def __str__(self):
+        return self.name
+
+
+class FoursUHC:
+    def __init__(self, data):
+        self.name = "UHC"
+        self.games_played = data.get("uhc_fours_rounds_played", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("Duels", {}).get("current_uhc_fours_winstreak", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_fours_kills", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_fours_deaths", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_fours_wins", 0),
+            data.get("player", {}).get("stats", {}).get("Duels", {}).get("uhc_fours_losses", 0)
         )
 
     def __str__(self):

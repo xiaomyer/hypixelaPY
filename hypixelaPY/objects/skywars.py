@@ -44,6 +44,7 @@ class Skywars:
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins", 0),
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses", 0)
         )
+        self.insane = Insane(data)
 
     def __str__(self):
         return self.name
@@ -58,3 +59,36 @@ class Prestige:
         self.next = self.star + 1
         self.percentage = utils.get_level_percentage(self.exact)
         self.color = utils.get_skywars_prestige_color(self.star_index)
+
+
+class Insane:
+    def __init__(self, data):
+        self.solo = SoloInsane(data)
+        self.doubles = DoublesInsane(data)
+
+
+class SoloInsane:
+    def __init__(self, data):
+        self.name = "Solo Insane"
+        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_solo_insane", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_solo_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_solo_insane", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_solo_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_solo_insane", 0)
+        )
+
+
+class DoublesInsane:
+    def __init__(self, data):
+        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_doubles_insane", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_doubles_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_doubles_insane", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_doubles_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_doubles_insane", 0)
+        )
