@@ -83,6 +83,7 @@ class SoloInsane:
 
 class DoublesInsane:
     def __init__(self, data):
+        self.name = "Doubles Insane"
         self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_doubles_insane", 0)
         self.kills = KillsDeaths(
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_doubles_insane", 0),

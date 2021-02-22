@@ -171,7 +171,7 @@ def get_ratio_next(ratio):
 def get_increase(positive_stat, negative_stat, *, amount: int = 0):
     ratio = get_ratio(positive_stat, negative_stat)
     if ratio == float("inf"):
-        return ratio
+        return 0
     if not bool(amount):
         amount = (math.trunc(ratio) + 1) - ratio
     needed = (ratio + amount) * negative_stat - positive_stat

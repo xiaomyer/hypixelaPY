@@ -110,7 +110,7 @@ class SoloUHC:
 
 class DoublesUHC:
     def __init__(self, data):
-        self.name = "UHC"
+        self.name = "UHC Doubles"
         self.games_played = data.get("uhc_doubles_rounds_played", 0)
         self.winstreak = data.get("player", {}).get("stats", {}).get("Duels", {}).get("current_uhc_doubles_winstreak", 0)
         self.kills = KillsDeaths(
@@ -128,7 +128,7 @@ class DoublesUHC:
 
 class FoursUHC:
     def __init__(self, data):
-        self.name = "UHC"
+        self.name = "UHC Fours"
         self.games_played = data.get("uhc_fours_rounds_played", 0)
         self.winstreak = data.get("player", {}).get("stats", {}).get("Duels", {}).get("current_uhc_fours_winstreak", 0)
         self.kills = KillsDeaths(
