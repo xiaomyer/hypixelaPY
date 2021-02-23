@@ -45,6 +45,7 @@ class Skywars:
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses", 0)
         )
         self.insane = Insane(data)
+        self.normal = Normal(data)
 
     def __str__(self):
         return self.name
@@ -70,6 +71,7 @@ class Insane:
 class SoloInsane:
     def __init__(self, data):
         self.name = "Solo Insane"
+        # self.games_played = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("games_played_solo_insane", 0)
         self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_solo_insane", 0)
         self.kills = KillsDeaths(
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_solo_insane", 0),
@@ -80,16 +82,65 @@ class SoloInsane:
             data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_solo_insane", 0)
         )
 
+    def __str__(self):
+        return self.name
+
 
 class DoublesInsane:
     def __init__(self, data):
         self.name = "Doubles Insane"
-        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_doubles_insane", 0)
+        # self.games_played = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("games_played_team_insane", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_team_insane", 0)
         self.kills = KillsDeaths(
-            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_doubles_insane", 0),
-            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_doubles_insane", 0)
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_team_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_team_insane", 0)
         )
         self.wins = WinsLosses(
-            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_doubles_insane", 0),
-            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_doubles_insane", 0)
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_team_insane", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_team_insane", 0)
         )
+
+    def __str__(self):
+        return self.name
+
+
+class Normal:
+    def __init__(self, data):
+        self.solo = SoloNormal(data)
+        self.doubles = DoublesNormal(data)
+
+
+class SoloNormal:
+    def __init__(self, data):
+        self.name = "Solo Normal"
+        # self.games_played = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("games_played_solo_normal", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_solo_normal", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_solo_normal", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_solo_normal", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_solo_normal", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_solo_normal", 0)
+        )
+
+    def __str__(self):
+        return self.name
+
+
+class DoublesNormal:
+    def __init__(self, data):
+        self.name = "Doubles Normal"
+        # self.games_played = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("games_played_team_normal", 0)
+        self.winstreak = data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("win_streak_team_normal", 0)
+        self.kills = KillsDeaths(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("kills_team_normal", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("deaths_team_normal", 0)
+        )
+        self.wins = WinsLosses(
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("wins_team_normal", 0),
+            data.get("player", {}).get("stats", {}).get("SkyWars", {}).get("losses_team_normal", 0)
+        )
+
+    def __str__(self):
+        return self.name

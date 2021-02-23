@@ -25,7 +25,7 @@ SOFTWARE.
 __title__ = "hypixelaPY"
 __author__ = "myerfire"
 __license__ = "MIT"
-__version__ = "1.4.2"
+__version__ = "1.5"
 
 from . import utils
 from .client import Hypixel, Mojang

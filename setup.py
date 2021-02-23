@@ -29,7 +29,7 @@ with open("README.md") as readme:
 
 setuptools.setup(
     name="hypixelaPY",
-    version="1.4.2",
+    version="1.5",
     author="myerfire",
     author_email="realmyerfire@gmail.com",
     description="An API wrapper for the Hypixel API",
