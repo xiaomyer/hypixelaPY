@@ -22,22 +22,28 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-from .stats import WinsLosses, KillsDeaths
+from .stats import KillsDeaths
 
 
-class Blitz:
+class Quake:
     def __init__(self, data):
-        self.name = "Blitz"
-        self.coins = data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("coins", 0)
-        self.games_played = data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("games_played", 0)
+        self.name = "Quake"
+        self.coins = data.get("player", {}).get("stats", {}).get("Quake", {}).get("coins", 0)
         self.kills = KillsDeaths(
-            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("kills", 0),
-            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("deaths", 0)
+            data.get("player", {}).get("stats", {}).get("Quake", {}).get("kills", 0),
+            data.get("player", {}).get("stats", {}).get("Quake", {}).get("deaths", 0)
         )
-        self.wins = WinsLosses(
-            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("wins", 0),
-            data.get("player", {}).get("stats", {}).get("HungerGames", {}).get("losses", 0)
-        )
+        self.wins = data.get("player", {}).get("stats", {}).get("Quake", {}).get("wins", 0)
+        self.headshots = data.get("player", {}).get("stats", {}).get("Quake", {}).get("headshots", 0)
+        self.killstreaks = Killstreaks(data)
+        self.shots_fired = data.get("player", {}).get("stats", {}).get("Quake", {}).get("shots_fired", 0)
 
     def __str__(self):
         return self.name
+
+
+class Killstreaks:
+    def __init__(self, data):
+        self.name = "Killstreaks"
+        self.killstreaks = self.amount = self.total = data.get("player", {}).get("stats", {}).get("Quake", {}).get("killstreaks", 0)
+        self.highest = data.get("player", {}).get("stats", {}).get("Quake", {}).get("highest_killstreak", 0)

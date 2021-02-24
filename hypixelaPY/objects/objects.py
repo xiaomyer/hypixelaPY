@@ -28,6 +28,7 @@ from .bedwars import Bedwars
 from .blitz import Blitz
 from .duels import Duels
 from .skywars import Skywars
+from .quake import Quake
 from .. import utils
 
 
@@ -112,6 +113,7 @@ class HypixelPlayer:
         self.skywars = Skywars(data)
         self.blitz = Blitz(data)
         self.duels = Duels(data)
+        self.quake = Quake(data)
 
     def __str__(self):
         return self.name
