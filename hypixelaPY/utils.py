@@ -148,6 +148,9 @@ skywars_prestige_colors = (
 )
 
 guild_tag_colors = {
+    "GRAY": int("607D8B", 16),
+    "GOLD": int("FFAC0F", 16),
+    "DARK_AQUA": int("00AAAA", 16),
     "DARK_GREEN": int("00AA00", 16),
     "YELLOW": int("FFFF55", 16)
 }
