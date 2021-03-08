@@ -28,7 +28,7 @@ from .exceptions import NoInputError, NoPlayerFoundError, NoGuildFoundError
 
 async def Hypixel(api: str):
     client = HypixelClient(api)
-    await client._get_key()
+    _ = await client.key.get()
     return client
 
 
@@ -44,12 +44,8 @@ class HypixelClient:
         # this acts as a check to see if the API key provided was valid and also will contain the stats of the key
         self.player = Player(self.api)
         self.guild = Guild(self.api)
+        self.key = Key(self.api)
         self.leaderboards = Leaderboards(self.api)
-
-    async def _get_key(self):
-        self.key = await hypixel.get_api_stats(self.api)
-        # this could error with InvalidAPIKeyError
-        # this acts as a check to see if the API key provided was valid and also will contain the stats of the key
 
 
 class Player:
@@ -145,6 +141,14 @@ class Guild:
         :return: Guild
         """
         return await hypixel.get_guild_by_name(name, self.api)
+
+
+class Key:
+    def __init__(self, api):
+        self.api = api
+
+    async def get(self):
+        return await hypixel.get_api_stats(self.api)
 
 
 class Mojang:
