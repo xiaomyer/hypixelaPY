@@ -56,7 +56,7 @@ class Player:
     def __init__(self, api: str):
         self.api = api
 
-    async def get(self, *, uuid: str = "", name: str = "", input_: str = ""):
+    async def get(self, *, uuid: str = "", name: str = "", query: str = ""):
         """
         Takes various inputs and tries to get a user
         This prioritizes UUID, then name, then an input wildcard that could be either name or UUID
@@ -64,18 +64,18 @@ class Player:
         :param uuid: A Minecraft account UUID
         :param name: A Minecraft account's name that will be converted to a
         UUID with the Mojang API
-        :param input_: A wildcard that could be either a UUID or a name. The library will
+        :param query: A wildcard that could be either a UUID or a name. The library will
         try to interpret this as a uuid first, and will fallback to interpreting as a name
         """
         if bool(uuid):
             return await self.get_by_uuid(uuid)
         elif bool(name):
             return await self.get_by_name(name)
-        elif bool(input_):
+        elif bool(query):
             try:
-                return await self.get_by_uuid(input_)
+                return await self.get_by_uuid(query)
             except NoPlayerFoundError:
-                return await self.get_by_name(input_)  # has the possibly of erroring with NoPlayerFoundError
+                return await self.get_by_name(query)  # has the possibly of erroring with NoPlayerFoundError
         else:
             raise NoInputError
 
@@ -109,16 +109,16 @@ class Guild:
     def __init__(self, api):
         self.api = api
 
-    async def get(self, *, name: str = "", uuid: str = "", input_: str = ""):
+    async def get(self, *, name: str = "", uuid: str = "", query: str = ""):
         if bool(name):
             return await self.get_by_name(name)
         elif bool(uuid):
             return await self.get_by_uuid(uuid)
-        elif bool(input_):
+        elif bool(query):
             try:
-                return await self.get_by_name(input_)
+                return await self.get_by_name(query)
             except NoGuildFoundError:
-                return await self.get_by_uuid(input_)  # has the possibility of erroring with NoGuildFoundError
+                return await self.get_by_uuid(query)  # has the possibility of erroring with NoGuildFoundError
         else:
             raise NoInputError
 
@@ -127,7 +127,6 @@ class Guild:
         Gets a guild from a player UUID
 
         :param uuid: A player's uuid
-        :param name: A guild name
         :return: Guild
         """
         return await hypixel.get_guild_by_player_uuid(uuid, self.api)
@@ -136,7 +135,6 @@ class Guild:
         """
         Gets a guild from a guild name
 
-        :param uuid: A player's uuid
         :param name: A guild name
         :return: Guild
         """
@@ -152,7 +150,7 @@ class Key:
 
 
 class Mojang:
-    async def get(self, *, uuid: str = "", name: str = "", input_: str = ""):
+    async def get(self, *, uuid: str = "", name: str = "", query: str = ""):
         """
         Takes various inputs and tries to get a user
         This prioritizes UUID, then name, then an input wildcard that could be either name or UUID
@@ -160,18 +158,18 @@ class Mojang:
         :param uuid: A Minecraft account UUID
         :param name: A Minecraft account's name that will be converted to a
         UUID with the Mojang API
-        :param input_: A wildcard that could be either a UUID or a name. The library will
+        :param query: A wildcard that could be either a UUID or a name. The library will
         try to interpret this as a uuid first, and will fallback to interpreting as a name
         """
         if bool(uuid):
             return await self.get_by_uuid(uuid)
         elif bool(name):
             return await self.get_by_name(name)
-        elif bool(input_):
+        elif bool(query):
             try:
-                return await self.get_by_uuid(input_)
+                return await self.get_by_uuid(query)
             except NoPlayerFoundError:
-                return await self.get_by_name(input_)  # has the possibility of erroring with NoPlayerFoundError
+                return await self.get_by_name(query)  # has the possibility of erroring with NoPlayerFoundError
         else:
             raise NoInputError
 

@@ -12,8 +12,8 @@
 
 `Player`:
 
-- `get(uuid: str=uuid, name: str=name, input_: str=input_) -> HypixelPlayer` - gets a player from the API
-    - this prioritizes `uuid`, then `name`, then `input_`
+- `get(uuid: str=uuid, name: str=name, query: str=query) -> HypixelPlayer` - gets a player from the API
+    - this prioritizes `uuid`, then `name`, then `query`
     - only one input is required for a valid result
 
 ```python
@@ -21,9 +21,9 @@ hypixel = await hypixelaPY.Hypixel(API_KEY)
 player = await hypixel.player.get(uuid=uuid)  # will use uuid
 player = await hypixel.player.get(name=name)  # will use name
 player = await hypixel.player.get(uuid=uuid, name=name)  # will use uuid
-player = await hypixel.player.get(input_=input_)  # will use input_
-player = await hypixel.player.get(uuid=uuid, name=name, input_=input_)  # will use uuid
-player = await hypixel.player.get(name=name, input=input_)  # will use name
+player = await hypixel.player.get(query=query)  # will use query
+player = await hypixel.player.get(uuid=uuid, name=name, query=query)  # will use uuid
+player = await hypixel.player.get(name=name, input=query)  # will use name
 ```
 
 `HypixelPlayer`:

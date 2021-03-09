@@ -24,8 +24,8 @@ SOFTWARE.
 
 
 class InvalidAPIKeyError(Exception):
-    def __init__(self, input_):
-        self.input_ = input_
+    def __init__(self, error):
+        self.error = error
 
 
 class NoInputError(Exception):
@@ -37,10 +37,10 @@ class NoAPIKeyError(Exception):
 
 
 class NoPlayerFoundError(Exception):
-    def __init__(self, input_):
-        self.input_ = input_
+    def __init__(self, error):
+        self.error = error
 
 
 class NoGuildFoundError(Exception):
-    def __init__(self, input_):
-        self.input_ = input_
+    def __init__(self, error):
+        self.error = error
