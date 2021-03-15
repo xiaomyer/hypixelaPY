@@ -35,7 +35,7 @@ async def get_player_by_name(name: str) -> MojangPlayer:
     async with aiohttp.request("GET", f"{MOJANG_API}/users/profiles/minecraft/{name}") as response:
         if response.status != 200:
             raise NoPlayerFoundError(name)
-    return MojangPlayer(await response.json())
+        return MojangPlayer(await response.json())
 
 
 async def get_player_by_uuid(uuid: str) -> MojangPlayer:
@@ -43,11 +43,11 @@ async def get_player_by_uuid(uuid: str) -> MojangPlayer:
                                f"{MOJANG_SESSION_SERVER}/session/minecraft/profile/{uuid.replace('-', '')}") as response:
         if response.status != 200:
             raise NoPlayerFoundError(uuid)
-    return MojangPlayer(await response.json())
+        return MojangPlayer(await response.json())
 
 
 async def get_player_name_history(uuid: str) -> NameHistory:
     async with aiohttp.request("GET", f"{MOJANG_API}/user/profiles/{uuid}/names") as response:
         if response.status != 200:
             raise NoPlayerFoundError(uuid)
-    return NameHistory(await response.json())
+        return NameHistory(await response.json())
