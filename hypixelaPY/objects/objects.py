@@ -104,7 +104,7 @@ class HypixelPlayer:
         self.uuid = data.get("player", {}).get("uuid")
         self.rank = Rank(data)
         self.display = utils.get_profile_display(self.name, self.rank)
-        self.level = Level(data.get("player", {}).get("networkExp"))
+        self.level = Level(data.get("player", {}).get("networkExp", 0))
         self.karma = data.get("player", {}).get("karma", 0)
         self.achievement_points = data.get("player", {}).get("achievementPoints", 0)
         self.logins = Logins(data)
