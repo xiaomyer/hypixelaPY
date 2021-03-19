@@ -321,4 +321,4 @@ def get_guild_display(name, tag):
 
 
 def get_guild_tag_color(color):
-    return guild_tag_colors.get(color)
+    return guild_tag_colors.get(color, int("000000", 16))

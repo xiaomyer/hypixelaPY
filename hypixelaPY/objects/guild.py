@@ -36,6 +36,7 @@ class Guild:
         self.members = GuildMembers(self.api, data.get("guild", {}).get("members"))
         self.created = datetime.datetime.fromtimestamp(data.get("guild", {}).get("created", 0) / 1000)
         self.level = Level(data.get("guild", {}).get("exp"))
+        self.experience = self.xp = self.exp = Level(data.get("guild", {}).get("exp"))
 
     def __str__(self):
         return self.name
@@ -81,7 +82,7 @@ class GuildMember:
         self.uuid = data.get("uuid")
         self.rank = data.get("rank")
         self.joined = datetime.datetime.fromtimestamp(data.get("joined") / 1000)
-        self.exp = self.exp_history = data.get("expHistory")
+        self.experience = self.xp = self.exp = self.exp_history = data.get("expHistory")
 
     async def get(self):  # get HypixelPlayer object of guild member
         return await hypixel.get_player_by_uuid(self.uuid, self.api)
