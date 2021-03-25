@@ -31,12 +31,13 @@ class Guild:
     def __init__(self, api, data):
         self.api = api
         self.name = data.get("guild", {}).get("name")
+        self.id = data.get("guild", {}).get("_id")
         self.tag = Tag(data)
         self.display = utils.get_guild_display(self.name, self.tag.tag)
         self.members = GuildMembers(self.api, data.get("guild", {}).get("members"))
         self.created = datetime.datetime.fromtimestamp(data.get("guild", {}).get("created", 0) / 1000)
         self.level = Level(data.get("guild", {}).get("exp"))
-        self.experience = self.xp = self.exp = Level(data.get("guild", {}).get("exp"))
+        self.experience = self.xp = self.exp = Level(data.get("guild", {}).get("exp", 0))
 
     def __str__(self):
         return self.name
