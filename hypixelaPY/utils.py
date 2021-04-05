@@ -94,6 +94,13 @@ bedwars_prestiges = (
     "Fire"
 )
 
+FIRST_FIVE_BEDWARS_LEVELS_TO_NEXT = {
+    0: 500,
+    1: 1000,
+    2: 2000,
+    3: 3500,
+}
+
 skywars_prestiges = (
     "Stone",
     "Iron",
@@ -322,3 +329,22 @@ def get_guild_display(name, tag):
 
 def get_guild_tag_color(color):
     return guild_tag_colors.get(color, int("000000", 16))
+
+
+def get_over_bedwars_prestige(level: int):
+    return level - ((level // 100) * 100)
+
+
+def get_bedwars_level(experience: int):
+    level = 0
+    while experience > 0:
+        over_prestige = get_over_bedwars_prestige(level)
+        if over_prestige in range(4):
+            experience -= FIRST_FIVE_BEDWARS_LEVELS_TO_NEXT.get(over_prestige)
+            level += 1
+        elif experience > 5000:
+            experience -= 5000
+            level += 1
+        else:
+            break
+    return level, experience
