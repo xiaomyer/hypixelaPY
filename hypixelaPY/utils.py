@@ -117,18 +117,17 @@ skywars_prestiges = (
 )
 
 bedwars_prestige_colors = (
-    int("607D8B", 16),
-    int("95A5A6", 16),
-    int("FFAC0F", 16),
-    int("55FFFF", 16),
-    int("00AA00", 16),
-    int("00AAAA", 16),
-    int("AA0000", 16),
-    int("FF69DC", 16),
-    int("2562E9", 16),
-    int("AA00AA", 16),
-    int("1ABC9C", 16),
-    int("607D8B", 16),
+    int("607D8B", 16),  # stone
+    int("95A5A6", 16),  # iron
+    int("FFAC0F", 16),  # gold
+    int("55FFFF", 16),  # diamond
+    int("00AA00", 16),  # emerald
+    int("00AAAA", 16),  # sapphire
+    int("AA0000", 16),  # ruby
+    int("FF69DC", 16),  # crystal
+    int("2562E9", 16),  # opal
+    int("AA00AA", 16),  # amethyst
+    int("1ABC9C", 16),  # rainbow
     int("95A5A6", 16),
     int("FFAC0F", 16),
     int("55FFFF", 16),
