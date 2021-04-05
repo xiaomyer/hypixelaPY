@@ -29,7 +29,7 @@ from .. import utils
 class Bedwars:
     def __init__(self, data):
         self.name = "Bedwars"
-        self.prestige = Prestige(data.get("player", {}).get("Bedwars", {}).get("Experience", 0))
+        self.prestige = Prestige(data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("Experience", 0))
         self.coins = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("coins", 0)
         self.games_played = data.get("player", {}).get("stats", {}).get("Bedwars", {}).get("games_played_bedwars", 0)
         self.beds = BedsBrokenLost(
