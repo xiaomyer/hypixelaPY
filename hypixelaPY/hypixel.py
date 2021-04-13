@@ -24,7 +24,7 @@ SOFTWARE.
 
 import aiohttp
 
-from .exceptions import InvalidAPIKeyError, NoPlayerFoundError, NoGuildFoundError
+from .exceptions import InvalidAPIKeyError, NoPlayerFoundError, NoGuildFoundError, APIError
 from .objects.guild import Guild
 from .objects.leaderboards import Leaderboards
 from .objects.objects import HypixelPlayer, APIKey
@@ -32,43 +32,61 @@ from .objects.objects import HypixelPlayer, APIKey
 HYPIXEL_API = "https://api.hypixel.net"
 
 
+# aiohttp.ContentTypeError "unexpected mimetime" is the error when the Hypixel API is down/unresponsive/timed out
+
+
 async def get_api_stats(api: str) -> APIKey:
-    async with aiohttp.request("GET", f"{HYPIXEL_API}/key?key={api}") as response:
-        json = await response.json()
-        if not json["success"]:
-            raise InvalidAPIKeyError(api)
-        return APIKey(json)
+    try:
+        async with aiohttp.request("GET", f"{HYPIXEL_API}/key?key={api}") as response:
+            json = await response.json()
+            if not json["success"]:
+                raise InvalidAPIKeyError(api)
+            return APIKey(json)
+    except aiohttp.ContentTypeError:
+        raise APIError
 
 
 async def get_player_by_uuid(uuid: str, api: str) -> HypixelPlayer:
-    async with aiohttp.request("GET", f"{HYPIXEL_API}/player?key={api}&uuid={uuid}") as response:
-        json = await response.json()
-        if not json["success"] or not json["player"]:  # hypixel apiTM; sometimes success is false sometimes player
-            # is null
-            raise NoPlayerFoundError(uuid)
-        return HypixelPlayer(json)
+    try:
+        async with aiohttp.request("GET", f"{HYPIXEL_API}/player?key={api}&uuid={uuid}") as response:
+            json = await response.json()
+            if not json["success"] or not json["player"]:  # hypixel apiTM; sometimes success is false sometimes player
+                # is null
+                raise NoPlayerFoundError(uuid)
+            return HypixelPlayer(json)
+    except aiohttp.ContentTypeError:
+        raise APIError
 
 
 async def get_leaderboards(api: str) -> Leaderboards:
-    async with aiohttp.request("GET", f"{HYPIXEL_API}/leaderboards?key={api}") as response:
-        json = await response.json()
-    # theoretically this shouldn't error ever, there is no input to be invalid it should be static
-        return Leaderboards(api, json)
+    try:
+        async with aiohttp.request("GET", f"{HYPIXEL_API}/leaderboards?key={api}") as response:
+            json = await response.json()
+        # theoretically this shouldn't error ever, there is no input to be invalid it should be static
+            return Leaderboards(api, json)
+    except aiohttp.ContentTypeError:
+        raise APIError
 
 
 async def get_guild_by_player_uuid(uuid: str, api: str) -> Guild:
-    async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&player={uuid}") as response:
-        json = await response.json()
-        if not json["success"] or not json["guild"]:  # hypixel apiTM; sometimes success is false sometimes guild
-            # is null
-            raise NoGuildFoundError(uuid)
-        return Guild(api, json)
+    try:
+        async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&player={uuid}") as response:
+            json = await response.json()
+            if not json["success"] or not json["guild"]:  # hypixel apiTM; sometimes success is false sometimes guild
+                # is null
+                raise NoGuildFoundError(uuid)
+            return Guild(api, json)
+    except aiohttp.ContentTypeError:
+        raise APIError
 
 
 async def get_guild_by_name(name: str, api: str) -> Guild:
-    async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&name={name}") as response:
-        json = await response.json()
-        if not json["success"] or not json["guild"]:  # hypixel apiTM; sometimes success is false sometimes guild
-            # is null
-            raise NoGuildFoundError(name)
-        return Guild(api, json)
+    try:
+        async with aiohttp.request("GET", f"{HYPIXEL_API}/guild?key={api}&name={name}") as response:
+            json = await response.json()
+            if not json["success"] or not json["guild"]:  # hypixel apiTM; sometimes success is false sometimes guild
+                # is null
+                raise NoGuildFoundError(name)
+            return Guild(api, json)
+    except aiohttp.ContentTypeError:
+        raise APIError
