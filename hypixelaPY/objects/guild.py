@@ -36,8 +36,7 @@ class Guild:
         self.display = utils.get_guild_display(self.name, self.tag.tag)
         self.members = GuildMembers(self.api, data.get("guild", {}).get("members"))
         self.created = datetime.datetime.fromtimestamp(data.get("guild", {}).get("created", 0) / 1000)
-        self.level = Level(data.get("guild", {}).get("exp", 0))
-        self.experience = self.xp = self.exp = Level(data.get("guild", {}).get("exp", 0))
+        self.level = self.experience = self.xp = self.exp = Level(data.get("guild", {}).get("exp", 0))
 
     def __str__(self):
         return self.name
