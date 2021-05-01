@@ -127,6 +127,7 @@ class Logins:
     def __init__(self, data):
         self.first = datetime.datetime.fromtimestamp(data.get("player", {}).get("firstLogin", 0) / 1000)
         self.last = datetime.datetime.fromtimestamp(data.get("player", {}).get("lastLogin", 0) / 1000)
+	self.logout = datetime.datetime.fromtimestamp(data.get("player", {}).get("lastLogout", 0) / 1000)
 
 
 class Social:
