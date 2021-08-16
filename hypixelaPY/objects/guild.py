@@ -66,7 +66,7 @@ class GuildMembers:
         self.count = len(data)
 
     def __iter__(self):
-        self.index = 0
+        self.index = -1
         return self
 
     def __next__(self):
