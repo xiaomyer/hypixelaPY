@@ -128,8 +128,9 @@ class Logins:
         self.first = datetime.datetime.utcfromtimestamp(data.get("player", {}).get("firstLogin", 0) / 1000)
         self.last = datetime.datetime.utcfromtimestamp(data.get("player", {}).get("lastLogin", 0) / 1000)
 	self.logout = datetime.datetime.utcfromtimestamp(data.get("player", {}).get("lastLogout", 0) / 1000)
-	self.online = return True if self.logout < self.last else False
-
+	self.online = True if self.logout < self.last else False
+	self.onlinetime = datetime.datetime.utcnow() - self.last if self.logout < self.last else self.logout - self.last
+	
 
 class Social:
     """
